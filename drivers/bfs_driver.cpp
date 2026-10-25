@@ -39,8 +39,10 @@ int main() {
         {"hello", "world"}, {"hello", "i"},  {"world", "i"},
         {"world", "two"},   {"love", "c++"}, {"i", "matlab"}};
 
+    std::vector<std::string> vertices = {"hello", "world", "two", "i", "love", "c++", "matlab"};
+
     std::unordered_map<std::string, std::vector<std::string>> g2 =
-        build_graph_umap(edges2, false);
+        build_graph_umap(vertices, edges2, false);
 
     // throw error
     std::unordered_map<std::string, std::vector<std::string>> empty2;

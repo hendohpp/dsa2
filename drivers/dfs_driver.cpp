@@ -36,13 +36,17 @@ int main() {
     std::vector<std::vector<std::string>> edges2 = {
         {"world", "I"}, {"I", "am"}, {"I", "having"}, {"am", "fun"}};
 
-    std::unordered_map<std::string, std::vector<std::string>> graph2 = build_graph_umap(edges2);
+    std::vector<std::string> vertices = {"hello", "world", "I", "am", "having", "fun"};
+
+    std::unordered_map<std::string, std::vector<std::string>> graph2 = build_graph_umap(vertices, edges2);
 
     // world I am fun having
     dfs<std::string>(graph2, "world");
-    
+
     // invalid input
     dfs<std::string>(graph2, "");
+
+    dfs<std::string>(graph2, "hello");
 
     return 0;
 }

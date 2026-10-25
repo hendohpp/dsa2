@@ -10,15 +10,22 @@
 
 // --- graph representations --- //
 
+// this version implicitly handles recording all vertices by taking in n as # vertices (0 to n - 1)
 std::vector<std::vector<int>>
 build_graph_vec(int n, const std::vector<std::vector<int>> &edges,
                 bool directed = false);
 
 template <typename T>
 std::unordered_map<T, std::vector<T>>
-build_graph_umap(const std::vector<std::vector<T>> &edges,
+build_graph_umap(const std::vector<T> &vertices,
+                 const std::vector<std::vector<T>> &edges,
                  bool directed = false) {
     std::unordered_map<T, std::vector<T>> adj_list;
+
+    // account for nodes that do not have any neighbors
+    for (const auto &vert : vertices) {
+        adj_list[vert] = {};   
+    }
 
     for (const auto &edge : edges) {
         T v1 = edge[0];

@@ -1,0 +1,16 @@
+# compiled output
+*
+!*/
+!*.*
+
+# object files and libraries
+*.o
+*.out
+*.a
+*.so
+
+# build system
+!Makefile
+
+# editor
+.vscode/

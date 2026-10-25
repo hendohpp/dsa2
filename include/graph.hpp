@@ -36,8 +36,10 @@ build_graph_umap(const std::vector<std::vector<T>> &edges,
 // --- implementations --- //
 
 void bfs(std::vector<std::vector<int>> &graph, int src);
+void dfs(std::vector<std::vector<int>> &graph, int src);
 
-template <typename T> void bfs(std::unordered_map<T, std::vector<T>> &graph, T src) {
+template <typename T>
+void bfs(std::unordered_map<T, std::vector<T>> &graph, T src) {
     int N = graph.size();
     if (N == 0 || !graph.contains(src)) {
         std::cout << "Invalid input.\n";
@@ -65,6 +67,35 @@ template <typename T> void bfs(std::unordered_map<T, std::vector<T>> &graph, T s
             }
         }
     }
+}
+
+template <typename T>
+void dfs_rec(std::unordered_map<T, std::vector<T>> &graph,
+             std::unordered_set<T> &visited, T node) {
+    if (visited.contains(node)) {
+        return;
+    }
+
+    std::cout << "Visited: " << node << "\n";
+    visited.insert(node);
+
+    for (T v : graph[node]) {
+        dfs_rec(graph, visited, v);
+    }
+}
+
+template <typename T>
+void dfs(std::unordered_map<T, std::vector<T>> &graph, T src) {
+    int N = graph.size();
+    if (N == 0 || !graph.contains(src)) {
+        std::cout << "Invalid input.\n";
+        return;
+    }
+
+    std::cout << "Starting DFS on: " << src << "\n";
+
+    std::unordered_set<T> visited;
+    dfs_rec(graph, visited, src);
 }
 
 #endif // GRAPH_HPP_

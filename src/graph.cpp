@@ -1,5 +1,7 @@
 #include "graph.hpp"
 
+// --- graph representation --- //
+
 std::vector<std::vector<int>>
 build_graph_vec(int n, const std::vector<std::vector<int>> &edges,
                 bool directed) {
@@ -17,6 +19,8 @@ build_graph_vec(int n, const std::vector<std::vector<int>> &edges,
 
     return adj_list;
 }
+
+// --- implementations --- //
 
 void bfs(std::vector<std::vector<int>> &graph, int src) {
     int N = graph.size();
@@ -46,4 +50,33 @@ void bfs(std::vector<std::vector<int>> &graph, int src) {
             }
         }
     }
+}
+
+// private recursive helper
+void dfs_rec(std::vector<std::vector<int>> &graph, std::vector<bool> &visited,
+             int node) {
+    if (visited[node]) {
+        return;
+    }
+
+    std::cout << "Visited: " << node << "\n";
+    visited[node] = true;
+
+    for (const int v : graph[node]) {
+        dfs_rec(graph, visited, v);
+    }
+}
+
+void dfs(std::vector<std::vector<int>> &graph, int src) {
+    int N = graph.size();
+    if (N == 0 || src < 0 || src >= N) {
+        std::cout << "Invalid input.\n";
+        return;
+    }
+
+    std::cout << "Staring DFS on: " << src << "\n";
+
+    std::vector<bool> visited(N, false);
+
+    dfs_rec(graph, visited, src);
 }
